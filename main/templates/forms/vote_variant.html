@@ -1,0 +1,53 @@
+{% load static %}
+
+{% if vote_variant_forms %}
+  <div class="container p-0">
+    {% for variant in vote_variant_forms %}
+      <div class="row mb-1">
+        <div class="col">
+          <form method="POST" action="{% url 'api-save_vote_variant' voting.pk %}" class="edit-form">
+            <div class="row align-items-center">
+              <div class="col">
+                {{ variant.save.vote_variant_new_description }}
+                <div class="form-text text-danger">
+                  {% if variant.save.vote_variant_new_description.errors %}
+                    {{ variant.save.vote_variant_new_description.errors.0 }}
+                  {% elif variant.save.non_field_errors %}
+                    {{ variant.save.non_field_errors.0 }}
+                  {% elif variant.delete.non_field_errors %}
+                    {{ variant.delete.non_field_errors.0 }}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-2">
+                <button type="submit" class="btn btn-primary">
+                  <img src="{% static 'img/save_button.png' %}" width="30">
+                </button>
+              </div>
+            </div>
+            {% for field in variant.save.hidden_fields %}
+              {{ field }}
+            {% endfor %}
+            {% csrf_token %}
+          </form>
+        </div>
+        <div class="col-2">
+          {% if voting.type != 1 %}
+            <form method="POST" action="{% url 'api-delete_vote_variant' voting.pk %}" style="display: flex;"
+                  class="justify-content-end edit-form">
+              <button type="submit" class="btn btn-danger">
+                <img src="{% static 'img/delete_button.png' %}" width="30">
+              </button>
+              {% for field in variant.delete.hidden_fields %}
+                {{ field }}
+              {% endfor %}
+              {% csrf_token %}
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Здесь пока пусто. Добавьте варианты по кнопке ниже</p>
+{% endif %}

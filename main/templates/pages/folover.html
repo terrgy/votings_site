@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+{% for i in folover %}
+<div class="bg-light p-5 rounded mt-3">
+  <h1>{{ i.to_user.first_name }} {{ i.to_user.last_name }}</h1>
+  <h2>{{ i.to_user.username }}</h2>
+  <p class="lead">{{ i.to_user.status }}</p>
+  <a class="btn btn-lg btn-primary" href="{% url 'user_profile' i.to_user.id %}" role="button">Посмотреть профиль
+    &raquo;</a>
+  <form method="POST" class="mt-2">
+    {% csrf_token %}
+    <input type="hidden" value="{{ i.to_user.id }}" name="user">
+    <button type="submit" class="btn btn-dark">Отписаться</button>
+  </form>
+</div>
+{% endfor %}
+{% endblock %}

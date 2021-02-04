@@ -1,0 +1,42 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ pagename }} - Simple votings</title>
+
+
+      {% bootstrap_css %}
+        {% block extra_css %} {% endblock %}
+    </head>
+
+
+    <body>
+
+    <header style="height: 80px;" class="mb-3">
+      {% include 'base/menu.html' %}
+    </header>
+
+    <main role="main" class="container">
+      <div id="messages_block">
+        {% include 'base/messages.html' %}
+      </div>
+      {% block content %} {% endblock %}
+
+      <footer class="footer mt-5">
+        {% block footer %}
+          <div class="container text-right">
+            Ваши права не защищены <span class="text-muted">&copy; ШП, {% now "Y" %}</span>
+          </div>
+        {% endblock %}
+      </footer>
+    </main>
+
+    {% bootstrap_javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+    </body>
+</html>

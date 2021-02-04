@@ -1,0 +1,30 @@
+{% load static %}
+
+{% if is_voted or not user.is_authenticated or is_ended %}
+  {% for variant in variants %}
+    <div class="row align-items-end mb-3">
+      <div class="col">
+        <span class="text-break">{{ variant.description }}</span>
+        {{ variant.progress_bar }}
+      </div>
+      <div class="col-1">
+        {% if variant.is_voted %}
+          <img src="{% static 'img/voted_icon.png' %}" width="40">
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  {% if is_voted %}
+    <a href="{% url 'api-cancel_vote' voting.pk %}" id="cancel_vote_btn" class="btn btn-danger">Отменить голос</a>
+  {% endif %}
+{% else %}
+  <form method="POST" action="{% url 'api-vote' voting.pk %}" id="vote_form">
+    {% if voting.type == 1 %}
+      {% include 'blocks/first_type_vote.html' %}
+    {% elif voting.type == 2 %}
+      {% include 'blocks/second_type_vote.html' %}
+    {% else %}
+      {% include 'blocks/third_type_vote.html' %}
+    {% endif %}
+  </form>
+{% endif %}

@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+  <style>
+    .left_time-word {
+      font-size: 20px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="row mt-3">
+    <div class="col-sm-5">
+      <div class="card h-100">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h3 class="me-2 mb-0 text-break">{{ voting.name }}</h3>
+            {% if request.user.is_authenticated %}
+              <div class="favourite_button_block">
+                {% if is_favourite %}
+                  {% include 'blocks/delete_favourite_img.html' %}
+                {% else %}
+                  {% include 'blocks/add_favourite_img.html' %}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ voting.description }}</p>
+          <div class="text-center">
+            {% if voting.image %}
+              <img src="{{ voting.image.image.url }}" class="img-fluid rounded">
+            {% else %}
+              <img src="{% static 'img/non_voting_picture.png' %}" class="img-fluid rounded">
+            {% endif %}
+          </div>
+        </div>
+        <p class="ms-3">Автор: <a href="{% url 'user_profile' voting.author.pk %}">{{ voting.author }}</a></p>
+        <a class="btn btn-secondary" href="{% url 'complaints_add' voting.pk %}">Пожаловаться</a>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <h4 class="text-center">Создано: {{ voting.published|date:"d.m.Y" }}</h4>
+      {% include 'blocks/full_time_display.html' %}
+      <div id="variants_block">
+        {% include 'blocks/variants_block.html' %}
+      </div>
+      {% if request.user.is_authenticated and request.user == voting.author %}
+        <a href="{% url 'edit' voting.id %}" class="btn btn-primary mt-2">Редактировать</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <script src="{% static 'js/messages.js' %}"></script>
+  <script src="{% static 'js/cookies.js' %}"></script>
+  <script src="{% static 'js/full_time.js' %}"></script>
+  <script src="{% static 'js/voting.js' %}"></script>
+{% endblock %}

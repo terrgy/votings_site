@@ -1,0 +1,259 @@
+{% extends 'base/base.html' %}
+
+{% block extra_css %}
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+  <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+  <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+  <meta name="theme-color" content="#7952b3">
+  <link href="https://getbootstrap.com/docs/5.0/examples/carousel/carousel.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+    </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+               aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img src="https://wallpapercave.com/wp/wp6492633.jpg" alt="" width="100%" height="100%"/>
+          </svg>
+
+          <div class="container">
+            <div class="carousel-caption text-start">
+              <h1 class="bg-dark p-1">Мы любим провокационные вопросы.</h1>
+              <p class="bg-dark p-1">Это одно из наших самых популярных голосований. Этим вопросом интересуются во всём
+                мире. В России этот вопрос стал самым провокационным за последнее время.</p>
+              <p><a class="btn btn-lg btn-primary" href="{% url 'voting' 9 %}" role="button">Посмотреть голосование</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+               aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img src="https://pp.userapi.com/c841433/v841433057/1b230/yjt9CBfHOyE.jpg" alt="" width="100%"
+                 height="100%"/>
+          </svg>
+
+          <div class="container">
+            <div class="carousel-caption">
+              <h1 class="text-light bg-dark">Главный профиль</h1>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Посмотреть</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+               aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <img src="https://res09.bignox.com/appcenter/en/2019/12/front-page-bg-champions.jpg" alt="" width="100%"
+                 height="100%">
+          </svg>
+
+          <div class="container">
+            <div class="carousel-caption text-end">
+              <h1 class="bg-dark">Лучшая игра всех времён</h1>
+              <p class="bg-dark">Переходи по моей ссылке и получи 2000 голды и 7 дней премиум акаунта! Уже тысяча
+                игроков по всему миру играют в Raid! Присоединяйся!</p>
+              <p><a class="btn btn-lg btn-primary" href="https://raidshadowlegends.com/" target="_blank" role="button">Raid
+                Shadow Legends</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущая</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующая</span>
+      </a>
+    </div>
+
+
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <div class="container marketing">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row py-lg-2">
+      <div class="col-lg-4">
+        <img src="{{ ld.image.image.url }}" width="140" height="140">
+        <h2>Фёдорова Лидия</h2>
+        <h3>{{ ld.username }}</h3>
+        <p></p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' ld.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="{{ kirigaya.image.image.url }}" width="140" height="140">
+
+        <h2>Гусев Григорий</h2>
+        <h3>{{ kirigaya.username }}</h3>
+        <h5>Механизм голосования(форма, бэк), регистрация, смена пароля, восстановление пароля</h5>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' kirigaya.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="{{ tin.image.image.url }}" width="140" height="140">
+
+        <h2>Старостин Даниил</h2>
+        <h3>{{ tin.username }}</h3>
+        <p></p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' tin.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+    <div class="row py-lg-2">
+      <div class="col-lg-4">
+        <img src="{{ sankea.image.image.url }}" width="140" height="140">
+        <h2>Клюшин Александр</h2>
+        <h3>{{ sankea.username }}</h3>
+        <p></p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' sankea.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+          <img src="https://gitlab.informatics.ru/uploads/-/system/user/avatar/2/x1cKuQ-jbB0-1.jpg?width=400" alt="" width="140px%" height="140px" x="50%" y="50% ">
+        </svg>
+
+        <h2>Смирнов Андрей Александрович</h2>
+        <h3>Ник</h3>
+        <p>Моральная поддержка и наставник. Не всегда проявлял милосердие. Но садизма не допускал. Помогал фиксить баги
+          и давал теорию.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="{{ pers.image.image.url }}" width="140" height="140">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+        </svg>
+
+        <h2>Брыкин Сергей</h2>
+        <h3>{{ pers.username }}</h3>
+        <p>Бэкенд списка голосований, избранных, моих голосований и фронтенд страницы голосования</p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' pers.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+    <div class="row py-lg-2">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <img src="{{ vlad.image.image.url }}" width="140" height="140">
+        <h2>Сидоров Владислав</h2>
+        <h3>{{ vlad.username }}</h3>
+        <p></p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' vlad.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <img src="{{ polomnik.image.image.url }}" width="140" height="140">
+
+        <h2>Глухов Максим</h2>
+        <h3>{{ polomnik.username }}</h3>
+        <p></p>
+        <p><a class="btn btn-secondary" href="{% url 'user_profile' polomnik.pk %}" role="button">Посмотреть профиль &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <a href="{% url 'django_registration_register' %}" class="btn btn-lg btn-success mt-2">Зарегистрироваться</a>
+        <a href="{% url 'votings' %}" class="btn btn-lg btn-success mt-2">Посмотреть голосования</a>
+      </div>
+    </div>
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">О проекте <span class="text-muted">или чем мы вообще занимались</span></h2>
+        <p class="lead mt-2">Приветствуем всех зашедших, и уделивших своё ценное время нашему проекту.
+          Здесь вы можете увидеть плоды деятельности семи человек, что писали код, рисовали дизайн и верстали эти
+          страницы.
+          Но что же это за проект? А всё просто!
+          Сколько вы видели бездушных, простых и неинтересных опросников?
+          Могу смело предположить, что далеко не один десяток!
+          Вконтакте, ютуб, одноклассники, твиттер... Подобный список можно продолжать часами, а то и днями!
+          Но присмотритесь, в эти строках как текста, так и кода вложена душа, пот и слёзы!
+          Мы хотим представить вашему вниманию полностью бесплатный (?) и не имеющий даже намёка на рекламу, проект.
+          Вы где-нибудь такое встречали? Я спрашиваю вас, вы ВСТРЕЧАЛИ ПОДОБНОЕ?
+          Здесь вы сможете легко создать умопомрочительные тесты, сложность коих невозможно вообразить.
+          Или маленький опросник, чтоб узнать мнение обширного количества людей в том или ином вопросе.
+          После простой и, главное, быстрой регистрации вы получите абсолютную власть над своими голосованиями!</p>
+      </div>
+      <div class="col-md-5 mt-5">
+        <img src="https://pbs.twimg.com/media/EUBmSERX0AETWar.jpg" width="625px" x="50%" y="10%" alt="">
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">О создателях <span class="text-muted">или кто (who?)</span></h2>
+        <p class="lead">Нас было всего семь человек, и каждый был отдельной личностью! Сойтись в характерах
+          казалось невозможно, но со временем, необходимость общаться и спрашивать друг друга о том, о сём,
+          положила начало сплочению колектива. Пусть мы и недолго пробыли в одной команде, каждый узнал других
+          чуть-чуть лучше, и уверенность в том, что соберись мы вновь, смогли бы сделать всё быстрее и качественнее,
+          лишь растёт. Мы уже представили их. А теперь послушайте мнение нашего тимлида. Он помогал нам в минуты
+          трудности,
+          всегда был на связи. Уже и не сосчитать сколько раз он помогал нам. Этот проект стал для него чем-то большим,
+          чем
+          обычный проект. Он уделял ему всего себя. Я до сих пор вспоминаю, как часа в 2-3 ночи заходил в дискорд и
+          видел, как
+          он работает над нашим проектом. Можно сказать, что без него этого проекта не было бы. Он писал тысячами строк.
+          И вот что получилось. И так мнение:
+          <i>" <big>Да пофиг, и так сойдет, коммить</big> "</i>
+        </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <img src="https://i.pinimg.com/736x/ee/f6/02/eef6024d74eebe59ecd45db4c1c5836c--spirituality-tribute.jpg" alt="">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
+
+{% endblock %}
+

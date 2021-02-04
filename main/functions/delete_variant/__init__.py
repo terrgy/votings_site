@@ -1,0 +1,1 @@
+from .delete_variant import delete_all_vote_facts_related_to_variant, delete_vote_variant

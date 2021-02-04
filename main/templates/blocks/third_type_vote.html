@@ -1,0 +1,22 @@
+{% if vote_variant_form %}
+  {% for variant in vote_variant_form.vote_variants %}
+    <div class="row align-items-end mb-3">
+      <div class="col">
+        <label for="{{ variant.id_for_label }}">
+          <span class="text-break">{{ variant.choice_label }}</span>
+        </label>
+        <div class="progress" style="height: 25px;"></div>
+      </div>
+      <div class="col-1">
+        {{ variant.tag }}
+      </div>
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">Проголосовать</button>
+  {% csrf_token %}
+{% else %}
+  <p>Голосовать пока не за что!</p>
+{% endif %}
+
+
+

@@ -1,0 +1,27 @@
+{% if voting.is_ended %}
+  <div class="strict_time_block">
+    <div class="is_ended_block">
+      <p class="text-warning text-center">Завершено</p>
+    </div>
+    <div class="left_time_block" style="display: none;">
+      <p>
+        <span class="left_time_days">0</span>:<span class="left_time_hours">00</span>:<span
+              class="left_time_minutes">00</span>:<span class="left_time_seconds">00</span>
+      </p>
+    </div>
+  </div>
+{% else %}
+  <div class="strict_time_block">
+    <div class="is_ended_block" style="display: none;">
+      <p class="text-warning text-center">Завершено</p>
+    </div>
+    <div class="left_time_block">
+      <p>
+        <span class="left_time_days">{{ voting.left_time.days }}</span>:<span
+              class="left_time_hours">{{ voting.left_time.hours|stringformat:"02d" }}</span>:<span
+              class="left_time_minutes">{{ voting.left_time.minutes|stringformat:"02d" }}</span>:<span
+              class="left_time_seconds">{{ voting.left_time.seconds|stringformat:"02d" }}</span>
+      </p>
+    </div>
+  </div>
+{% endif %}

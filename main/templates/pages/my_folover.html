@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+{% for i in folover %}
+<div class="bg-light p-5 rounded mt-3">
+  <h1>{{ i.folover.first_name }} {{ i.folover.last_name }}</h1>
+  <h2>{{ i.folover.username }}</h2>
+  <p class="lead">{{ i.folover.status }}</p>
+  <a class="btn btn-lg btn-primary" href="{% url 'user_profile' i.folover.id %}" role="button">Посмотреть профиль
+    &raquo;</a>
+  <!--<div class="row">
+        {% if folover == 0 %}
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="True" name="save">
+            <input type="hidden" value="{{ i.id }}" name="user">
+            <button type="submit" class="btn btn-danger">Подписаться</button>
+          </form>
+        {% else %}
+          <form method="POST" class="mt-2">
+            {% csrf_token %}
+            <input type="hidden" value="False" name="save">
+            <input type="hidden" value="{{ i.id }}" name="user">
+            <button type="submit" class="btn btn-dark">Отписаться</button>
+          </form>
+        {% endif %}
+  </div>-->
+</div>
+{% endfor %}
+{% endblock %}

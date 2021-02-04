@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+  <h1 class="mt-5">Пожаловаться На Голосование</h1>
+  <form method="POST" action="">
+    {% csrf_token %}
+    {% for i in Complaints_voting_form.visible_fields %}
+      {{ i.label }}
+      {{ i }} <br>
+    {% endfor %}<br/>
+    {% for i in Complaints_voting_form.hidden_fields %}
+      {{ i }}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success mt-2">Добавить</button>
+  </form>
+{% endblock %}

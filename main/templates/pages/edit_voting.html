@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="row">
+    <h2>Редактирование <a href="{% url 'voting' voting.pk %}">голосования</a></h2>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Основная информация</h3>
+      <form method="POST" action="{% url 'api-edit_main_settings' voting.pk %}" class="edit-form"
+            id="main_settings_form">
+        {% include 'forms/main_settings.html' %}
+      </form>
+      <div class="mb-3">
+        <a id="cancel_button" class="btn btn-danger w-100" style="display: none;"
+           href="{% url 'api-reload_edit_forms' voting.pk %}">Отмена</a>
+      </div>
+      <h3>Изображение</h3>
+      <form
+              method="POST"
+              action="{% url 'api-vote_upload_image' voting.pk %}"
+              class="image_edit_form"
+              enctype="multipart/form-data"
+              id="image_upload_form"
+      >
+        {% include 'forms/image_upload_form.html' %}
+      </form>
+    </div>
+    <div class="col">
+      <h3>Варианты</h3>
+      <div id="vote_variant_forms_block">
+        {% include 'forms/vote_variant.html' %}
+      </div>
+      <div id="add_vote_variant_form_block">
+        {% include 'forms/add_vote_variant.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/cookies.js' %}"></script>
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <script src="{% static 'js/messages.js' %}"></script>
+  <script src="{% static 'js/edit_voting.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="d-flex div_center ml-sm">
+    {% if user.image %}
+      <img
+              src="{{ user.image.image.url }}"
+              alt=""
+              width="215px"
+              height="215px"
+              class="me-3 mb-3"
+      >
+    {% else %}
+      <img
+              src="{% static 'img/non_avatar_profile_picture.png' %}"
+              alt=""
+              width="215px"
+              height="215px"
+              class="me-3 mb-3"
+      >
+    {% endif %}
+    <div class="ml-3">
+      <h1 class="">
+        {{ username }}
+      </h1>
+      <h1>
+        {{ user.first_name }} {{ user.last_name }}
+      </h1>
+      <h3>{{ user.status }}</h3>
+      {% if user.is_staff %}
+        <div class="bg-dark p-1">
+          <h3 class="text-light">Модератор</h3>
+        </div>
+
+      {% endif %}
+    </div>
+  </div>
+{% if user == request.user %}
+  <div class="mt-1">
+    <a href="{% url 'redact_profile' user.pk %}" class="btn btn-primary">Редактировать</a>
+  </div>
+{% endif %}
+  <h1 class="mt-5 text-center">Статистика</h1>
+  <table class="table mt-2 text-center">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Отправлено голосов</th>
+      <th scope="col">Жалоб</th>
+      <th scope="col">Голосов под его голосованиями</th>
+      <th scope="col">Создано голосований</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><h1>{{ user_facts }}</h1></td>
+      <td><h1>{{ user_complaints }}</h1></td>
+      <td><h1>{{ user_variants_tr }}</h1></td>
+      <td><h1>{{ user_created }}</h1></td>
+    </tr>
+    </tbody>
+  </table>
+  <h1 class="mt-5 text-center">Мои голосования</h1>
+  {{ my_votings_table }}
+  <h1 class="mt-5 text-center">Избранные</h1>
+  {{ favourite_votings_table }}
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/cookies.js' %}"></script>
+  <script src="{% static 'js/messages.js' %}"></script>
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <script src="{% static 'js/strict_time.js' %}"></script>
+  <script src="{% static 'js/votings_list.js' %}"></script>
+{% endblock %}

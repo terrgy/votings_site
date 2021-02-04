@@ -1,0 +1,5 @@
+from .add_vote_variant import process_add_vote_variant_form, collect_add_vote_variant_form
+from .delete_vote_variant import process_delete_vote_variant_form, collect_delete_vote_variant_form
+from .main_settings import process_main_settings_form, collect_main_settings_form
+from .save_vote_variant import process_save_vote_variant_form, collect_save_vote_variant_form
+from .vote_variant import collect_vote_variant_forms

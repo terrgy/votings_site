@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-5">
+      <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search">
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-success" type="submit">Поиск</button>
+    </div>
+  </div>
+</form>
+<div class="d-inline-flex p-2 bd-highlight">
+  <div class="container">
+    <div class="row">
+      {% for voting in votings %}
+    <div class="card p-2" style="width: 18rem;">
+    {% if voting.image %}
+        <img src="{{ voting.image.image.url }}" class="img-fluid rounded">
+    {% else %}
+        <img src="{% static 'img/non_voting_picture.png' %}" class="img-fluid rounded">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ voting.name }}</h5>
+      <p class="card-text">{{ voting.description }}</p>
+      <a href="{% url 'voting' voting.id %}" class="btn btn-primary">Перейти в голосование</a>
+    </div>
+    </div>
+</div>
+    {% endfor %}
+  </div>
+
+  </div>
+
+
+
+
+{% endblock %}

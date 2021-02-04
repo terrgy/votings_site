@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'index' %}">Умное голосование</a>
+    <div class="collapse navbar-collapse justify-content-start" id="navbarMainLinks">
+      <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'add' %}">Создать голосование</a>
+        </li>
+        {% endif %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'votings' %}">Список голосований</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'user' %}">Пользователи</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'search_page' %}">Найти</a>
+          </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end w-25" id="navbarUserMenu">
+      <ul class="navbar-nav mr-1">
+        {% block usermenu %}
+          {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                {{ request.user.username }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+                <li><a class="dropdown-item" href="{% url 'user_profile' request.user.pk %}">Профиль</a></li>
+                <li><a class="dropdown-item" href="{% url 'history' %}">История</a></li>
+                <li><a class="dropdown-item" href="{% url 'favorites' request.user.pk %}">Избранные</a></li>
+                <li><a class="dropdown-item" href="{% url 'my_votings' request.user.pk %}">Мои голосования</a></li>
+                <li><a class="dropdown-item" href="{% url 'my_folovers' %}">Подписки</a></li>
+                <li><a class="dropdown-item" href="{% url 'my_complaints' %}">Жалобы</a></li>
+                {% if request.user.is_staff %}
+                  <li><a class="dropdown-item" href="/admin/">Админ-панель</a></li>
+                {% endif %}
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'login' %}">Войти</a>
+            </li>
+          {% endif %}
+        {% endblock %}
+
+      </ul>
+    </div>
+  </div>
+</nav>

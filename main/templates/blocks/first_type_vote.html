@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm">
+    <button
+            name="vote_variants"
+            value="{{ vote_variants.0.tag }}"
+            type="button"
+            class="btn btn-success vote_single_button w-100"
+            id="{{ vote_variants.0.id }}"
+            style="height: 70px;"
+    >
+      {{ vote_variants.0.choice_label }}
+    </button>
+  </div>
+  <div class="col-sm">
+    <button
+            name="vote_variants"
+            value="{{ vote_variants.1.tag }}"
+            type="button"
+            class="btn btn-warning vote_single_button w-100"
+            id="{{ vote_variants.1.id }}"
+            style="height: 70px;"
+    >
+      {{ vote_variants.1.choice_label }}
+    </button>
+  </div>
+</div>
+{% csrf_token %}

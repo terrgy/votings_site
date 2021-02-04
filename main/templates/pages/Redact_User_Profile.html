@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<h1 class="mt-4 mb-2">Редактировать профиль</h1>
+  <div class="row">
+    <div class="col-5">
+      <form method="POST" action="" class="edit-form">
+        {% csrf_token %}
+        {% for i in form %}
+          {{ i }} <br>
+          {{ i.label }} <br>
+        {% endfor %}
+        <a href="{% url 'password_change' %}">Изменить пароль</a> <br>
+        <button type="submit" class="btn btn-success w-100 mt-3 btn-lg">Сохранить</button>
+      </form>
+    </div>
+  </div><h1>Изображение профиля</h1>
+  <form
+          method="POST"
+          action="{% url 'api-profile_upload_image' user_now.pk %}"
+          class="image_edit_form"
+          enctype="multipart/form-data"
+          id="image_upload_form"
+  >
+    {% include 'forms/image_upload_form.html' %}
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/cookies.js' %}"></script>
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <script src="{% static 'js/messages.js' %}"></script>
+  <script src="{% static 'js/edit_profile.js' %}"></script>
+{% endblock %}

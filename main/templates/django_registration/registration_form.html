@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% load bootstrap5 %}
+
+{% block content %}
+  <h1 class="mt-4">Регистрация</h1>
+  <hr>
+  <div class="row">
+    <form method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <div class="col-6 offset-4 mt-2">
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+      </div>
+    </form>
+    {% if form.errors %}
+      <div class="text-danger">
+        {{ form.errors }}
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}

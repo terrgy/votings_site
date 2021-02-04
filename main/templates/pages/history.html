@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <h1>История действий</h1>
+  {% if events %}
+    <div class="table-responsive">
+      <table class="table text-center">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col">Действие</th>
+          <th scope="col">Голосование</th>
+          <th scope="col">Время</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+          <tr
+                  class="align-middle"
+                  onclick="document.location.href='{% url 'voting' event.voting.pk %}'"
+                  style="cursor: pointer;"
+          >
+            <td>
+              {% if event.type == 'vote' %}
+                Отдан голос
+              {% elif event.type == 'favourite' %}
+                Добавлено в избранное
+              {% else %}
+                Неизвестно
+              {% endif %}
+            </td>
+            <td class="text-break">
+              {{ event.voting.name|truncatechars:30 }}
+            </td>
+            <td>
+              {{ event.time }}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>Здесь пока ничего нет!</p>
+  {% endif %}
+{% endblock %}

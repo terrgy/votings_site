@@ -1,0 +1,112 @@
+{% load static %}
+
+{% if votings_list %}
+  <div class=class="table-responsive">
+    <table class="table mt-2 text-center">
+      <thead class="table-dark">
+      <tr>
+        <th class="col-2" scope="col">Название</th>
+        <th class="col-7" scope="col">Описание</th>
+        <th class="col-2" scope="col">Осталось</th>
+        <th class="col-1" scope="col">Автор</th>
+        {% if additional_field == 'edit' %}
+          {% if user.is_authenticated %}
+            <th class="col" scope="col">
+              <div class="text-right">Избранное</div>
+            </th>
+            <th class="col" scope="col">
+              Редакт.
+            </th>
+          {% endif %}
+        {% else %}
+          {% if user.is_authenticated %}
+            <th class="col" scope="col">
+              <div class="text-right">Избранное</div>
+            </th>
+            <th class="col" scope="col">
+              Жалоба
+            </th>
+          {% endif %}
+        {% endif %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for voting in votings_list %}
+        <tr class="align-middle">
+          <td
+                  class="text-break"
+                  onclick="table_row_click('{% url 'voting' voting.pk %}')"
+                  style="cursor: pointer;"
+          >
+            {{ voting.name|truncatechars:30 }}
+          </td>
+          <td
+                  class="text-break text-start"
+                  onclick="table_row_click('{% url 'voting' voting.pk %}')"
+                  style="cursor: pointer;"
+          >
+            {{ voting.description|truncatechars:250 }}
+          </td>
+          <td
+                  onclick="table_row_click('{% url 'voting' voting.pk %}')"
+                  style="cursor: pointer;"
+          >
+            {% include 'blocks/strict_time_display.html' %}
+          </td>
+          <td><a href="{% url 'user_profile' voting.author.pk %}">{{ voting.author.username }}</a></td>
+          {% if additional_field == 'edit' %}
+            {% if request.user.is_authenticated %}
+              <td class="text-center favourite_button_block">
+                {% if voting.is_favourite %}
+                  {% include 'blocks/delete_favourite_img.html' %}
+                {% else %}
+                  {% include 'blocks/add_favourite_img.html' %}
+                {% endif %}
+              </td>
+              <td class="text-center">
+                {% if request.user == voting.author %}
+                  <a href="{% url 'edit' voting.pk %}">
+                    <img
+                            src="{% static 'img/edit_button.png' %}"
+                            class="rounded"
+                            width="30px"
+                            height="30px"
+                            alt=""
+                    >
+                  </a>
+                {% endif %}
+              </td>
+            {% endif %}
+          {% else %}
+            {% if user.is_authenticated %}
+              <td class="text-center favourite_button_block">
+                {% if voting.is_favourite %}
+                  {% include 'blocks/delete_favourite_img.html' %}
+                {% else %}
+                  {% include 'blocks/add_favourite_img.html' %}
+                {% endif %}
+              </td>
+              <td class="text-center">
+                {% if request.user != voting.author %}
+                  <a href="{% url 'complaints_add' voting.pk %}">
+                    <img
+                            src="{% static 'img/complain_button.png' %}"
+                            class="rounded"
+                            width="30px"
+                            height="30px"
+                            alt=""
+                    >
+                  </a>
+                {% endif %}
+              </td>
+            {% endif %}
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>Здесь пока ничего нет!</p>
+{% endif %}
+

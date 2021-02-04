@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% load bootstrap5 %}
+
+{% block content %}
+  <h1 class="mt-4">Авторизация</h1>
+  <hr>
+  <div class="row">
+    <div class="col-4 offset-4">
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary float-right btn-block mt-2">Войти</button>
+        <a class="btn btn-dark mt-2" href="{% url 'password_reset' %}">Восстановить пароль</a>
+        <a class="btn btn-success mt-1" href="{% url 'django_registration_register' %}">Зарегистрироваться</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

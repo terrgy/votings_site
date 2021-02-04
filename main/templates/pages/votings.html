@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <h1 class="mt-5 text-center">Голосования</h1>
+<div class="row mt-4"><a href="{% url 'search_page' %}" class="btn btn-success">Поиск</a></div>
+  {% include 'blocks/votings_table.html' %}
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/cookies.js' %}"></script>
+  <script src="{% static 'js/messages.js' %}"></script>
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <script src="{% static 'js/strict_time.js' %}"></script>
+  <script src="{% static 'js/votings_list.js' %}"></script>
+{% endblock %}

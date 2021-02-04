@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <h1 class="mt-5">Создать голосование</h1>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+      {{ add_voting_form.name.label }}
+      {{ add_voting_form.name }}
+    </div>
+    <div class="mb-3">
+      {{ add_voting_form.description.label }}
+      {{ add_voting_form.description }}
+    </div>
+    <div class="mb-3">
+      {{ add_voting_form.type }}
+    </div>
+    <div class="mb-3 d-flex">
+      {{ add_voting_form.finished }}
+    </div>
+
+    {% for i in add_voting_form.hidden_fields %}
+      {{ i }}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success mt-2">Добавить</button>
+  </form>
+{% endblock %}

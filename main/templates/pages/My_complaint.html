@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+  <h1 class="mt-5">Ваши жалобы</h1>
+  <div>
+      <table class="table mt-2">
+        <thead class="table-dark">
+            <th scope="col">Жалоба</th>
+            <th scope="col">Статус</th>
+        </thead>
+        <tbody>
+          {%for record  in complaint %}
+          <tr>
+            <td><a href = "{% url 'voting' record.voting.id %}">{{record.description}}</a></td>
+            <td>{{record.status}}</td>
+          </tr>
+        </tbody>
+        {%endfor%}
+      </table>
+    </div>
+{% endblock %}

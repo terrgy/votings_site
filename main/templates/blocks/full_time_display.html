@@ -1,0 +1,61 @@
+{% if is_ended %}
+  <div id="is_ended_block">
+    <h2 class="text-warning text-center">Завершено</h2>
+  </div>
+  <div id="left_time_block" style="display: none;">
+    <h3 class="text-center">Осталось до конца:</h3>
+    <h2 class="text-center">
+      <span id="left_time_days" style="display: none;"><span class="left_time-value">0</span><span
+              class="left_time-word">дней</span></span>
+      <span id="left_time_hours" style="display: none;"><span class="left_time-value">0</span><span
+              class="left_time-word">часов</span></span>
+      <span id="left_time_minutes" style="display: none;"><span class="left_time-value">0</span><span
+              class="left_time-word">минут</span></span>
+      <span id="left_time_seconds" style="display: none;"><span class="left_time-value">0</span><span
+              class="left_time-word">секунд</span></span>
+    </h2>
+  </div>
+{% else %}
+  <div id="is_ended_block" style="display: none;">
+    <h2 class="text-warning text-center">Завершено</h2>
+  </div>
+  <div id="left_time_block">
+    <h3 class="text-center">Осталось до конца:</h3>
+    <h2 class="text-center">
+      {% if left_time.days.value %}
+        <span id="left_time_days"><span class="left_time-value">{{ left_time.days.value }}</span><span
+                class="left_time-word">{{ left_time.days.word }}</span></span>
+      {% else %}
+        <span id="left_time_days" style="display: none;"><span class="left_time-value">{{ left_time.days.value }}</span><span
+                class="left_time-word">{{ left_time.days.word }}</span></span>
+      {% endif %}
+
+      {% if left_time.hours.value %}
+        <span id="left_time_hours"><span class="left_time-value">{{ left_time.hours.value }}</span><span
+                class="left_time-word">{{ left_time.hours.word }}</span></span>
+      {% else %}
+        <span id="left_time_hours" style="display: none;"><span
+                class="left_time-value">{{ left_time.hours.value }}</span><span
+                class="left_time-word">{{ left_time.hours.word }}</span></span>
+      {% endif %}
+
+      {% if left_time.minutes.value %}
+        <span id="left_time_minutes"><span class="left_time-value">{{ left_time.minutes.value }}</span><span
+                class="left_time-word">{{ left_time.minutes.word }}</span></span>
+      {% else %}
+        <span id="left_time_minutes" style="display: none;"><span
+                class="left_time-value">{{ left_time.minutes.value }}</span><span
+                class="left_time-word">{{ left_time.minutes.word }}</span></span>
+      {% endif %}
+
+      {% if left_time.seconds.value %}
+        <span id="left_time_seconds"><span class="left_time-value">{{ left_time.seconds.value }}</span><span
+                class="left_time-word">{{ left_time.seconds.word }}</span></span>
+      {% else %}
+        <span id="left_time_seconds" style="display: none;"><span
+                class="left_time-value">{{ left_time.seconds.value }}</span><span
+                class="left_time-word">{{ left_time.seconds.word }}</span></span>
+      {% endif %}
+    </h2>
+  </div>
+{% endif %}

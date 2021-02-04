@@ -1,0 +1,29 @@
+{% load static %}
+
+{% if vote_variants %}
+  {% for variant in vote_variants %}
+    <div class="row align-items-end mb-3">
+      <div class="col">
+        <label for="{{ variant.id }}">
+          <span class="text-break">{{ variant.choice_label }}</span>
+        </label>
+        <div class="progress" style="height: 25px;"></div>
+      </div>
+      <div class="col-1">
+        <button
+                name="vote_variants"
+                value="{{ variant.tag }}"
+                type="button"
+                class="btn btn-primary vote_single_button"
+                id="{{ variant.id }}"
+        >
+          <img src="{% static 'img/voted_icon.png' %}" width="30">
+        </button>
+      </div>
+    </div>
+  {% endfor %}
+  {% csrf_token %}
+{% else %}
+  <p>Голосовать пока не за что!</p>
+{% endif %}
+

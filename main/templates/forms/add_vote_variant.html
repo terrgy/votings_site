@@ -1,0 +1,34 @@
+{% load static %}
+
+{% if voting.type != 1 %}
+  <h3>Добавить вариант</h3>
+  <div class="container p-0">
+  <div class="row mb-1">
+    <div class="col">
+      <form method="POST" action="{% url 'api-add_vote_variant' voting.pk %}" class="edit-form">
+        <div class="row align-items-center">
+          <div class="col">
+            {{ add_vote_variant_form.vote_variant_description }}
+            <div class="form-text text-danger mt-0">
+              {% if add_vote_variant_form.vote_variant_description.errors %}
+                {{ add_vote_variant_form.vote_variant_description.errors.0 }}
+              {% elif add_vote_variant_form.non_field_errors %}
+                {{ add_vote_variant_form.non_field_errors.0 }}
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-2">
+            <button type="submit" class="btn btn-success">
+              <img src="{% static 'img/add_button.png' %}" width="30">
+            </button>
+          </div>
+        </div>
+        {% for field in add_vote_variant_form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+        {% csrf_token %}
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+{% endif %}

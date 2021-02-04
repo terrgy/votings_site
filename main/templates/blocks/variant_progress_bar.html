@@ -1,0 +1,16 @@
+<div class="progress position-relative" style="height: 25px;">
+  <div
+          class="progress-bar {{ class }}"
+          role="progressbar"
+          style="width: {{ percentage }}%"
+          aria-valuenow="{{ percentage }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+  >
+  </div>
+  <div class="position-absolute w-100 h-100" style="display: flex; align-items: center; justify-content: center;">
+    <div style="height: 10px; line-height: 1;" class="fw-bold">
+      {{ count }} ({{ percentage }}%)
+    </div>
+  </div>
+</div>
