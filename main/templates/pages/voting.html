@@ -49,7 +49,7 @@
         {% include 'blocks/variants_block.html' %}
       </div>
       {% if request.user.is_authenticated and request.user == voting.author %}
-        <a href="{% url 'edit' voting.id %}" class="btn btn-primary mt-2">Редактировать</a>
+        <a href="{% url 'edit_page' voting.id %}" class="btn btn-primary mt-2">Редактировать</a>
       {% endif %}
     </div>
   </div>

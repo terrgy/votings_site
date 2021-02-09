@@ -2,39 +2,188 @@
 
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .statistics_href {
+      opacity: 0;
+    }
+
+    .variant_block:hover .statistics_href {
+      opacity: 1;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
   <div class="row">
     <h2>Редактирование <a href="{% url 'voting' voting.pk %}">голосования</a></h2>
   </div>
-  <div class="row">
-    <div class="col">
-      <h3>Основная информация</h3>
-      <form method="POST" action="{% url 'api-edit_main_settings' voting.pk %}" class="edit-form"
-            id="main_settings_form">
-        {% include 'forms/main_settings.html' %}
-      </form>
-      <div class="mb-3">
-        <a id="cancel_button" class="btn btn-danger w-100" style="display: none;"
-           href="{% url 'api-reload_edit_forms' voting.pk %}">Отмена</a>
-      </div>
-      <h3>Изображение</h3>
-      <form
-              method="POST"
-              action="{% url 'api-vote_upload_image' voting.pk %}"
-              class="image_edit_form"
-              enctype="multipart/form-data"
-              id="image_upload_form"
+
+  <ul class="nav nav-pills justify-content-center mb-5" id="edit_nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link rounded-pill nav-anchor {% if anchor == 'main' %} active {% endif %}"
+              id="edit_nav-main-tab"
+              data-bs-toggle="pill"
+              href="#edit_nav-main"
+              role="tab"
+              anchor="main"
+              aria-controls="edit_nav-main"
+              aria-selected="true"
       >
-        {% include 'forms/image_upload_form.html' %}
-      </form>
-    </div>
-    <div class="col">
-      <h3>Варианты</h3>
-      <div id="vote_variant_forms_block">
-        {% include 'forms/vote_variant.html' %}
+        Основное
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link rounded-pill nav-anchor {% if anchor == 'variants' %} active {% endif %}"
+              id="edit_nav-variants-tab"
+              data-bs-toggle="pill"
+              href="#edit_nav-variants"
+              role="tab"
+              anchor="variants"
+              aria-controls="edit_nav-variants"
+              aria-selected="false"
+      >
+        Варианты
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link rounded-pill nav-anchor  {% if anchor == 'answers' %} active {% endif %}"
+              id="edit_nav-answers-tab"
+              data-bs-toggle="pill"
+              href="#edit_nav-answers"
+              role="tab"
+              anchor="answers"
+              aria-controls="edit_nav-answers"
+              aria-selected="false"
+      >
+        Ответы
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+              class="nav-link rounded-pill nav-anchor  {% if anchor == 'social' %} active {% endif %}"
+              id="edit_nav-social-tab"
+              data-bs-toggle="pill"
+              href="#edit_nav-social"
+              role="tab"
+              anchor="social"
+              aria-controls="edit_nav-social"
+              aria-selected="false"
+      >
+        Социальное
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="edit_nav-tab-content">
+    <div
+            class="tab-pane fade show {% if anchor == 'main' %} active {% endif %}"
+            id="edit_nav-main"
+            role="tabpanel"
+            aria-labelledby="edit_nav-main-tab"
+    >
+      <div class="row">
+        <div class="col">
+          <form method="POST" action="{% url 'api-edit_main_settings' voting.pk %}" class="edit-form"
+                id="main_settings_form">
+            {% include 'forms/main_settings.html' %}
+          </form>
+          <div class="mb-3">
+            <a id="cancel_button" class="btn btn-danger w-100" style="display: none;"
+               href="{% url 'api-reload_edit_forms' voting.pk %}">Отмена</a>
+          </div>
+        </div>
+        <div class="col-5">
+          <img
+                  class="img-fluid"
+                  data-bs-toggle="modal"
+                  data-bs-target="#update_image-modal"
+                  alt="Изображение голосования"
+                  {% if voting.image %}
+                  src="{{ voting.image.image.url }}"
+                  {% else %}
+                  src="{% static 'img/non_voting_picture.png' %}"
+                  {% endif %}
+                  id="voting_image"
+          >
+          <button type="button" class="btn btn-primary w-100 mt-3" data-bs-toggle="modal"
+                  data-bs-target="#update_image-modal">
+            Обновить изображение
+          </button>
+          <a
+                  id="delete_voting_image-btn"
+                  class="btn btn-danger w-100 mt-3"
+                  href="{% url 'api-delete_voting_image' voting.pk %}"
+                  {% if not voting.image %}
+                  style="display: none;"
+                  {% endif %}
+          >
+            Удалить изображение
+          </a>
+          <div class="modal fade" id="update_image-modal" tabindex="-1" aria-labelledby="update_image-modal"
+               aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Обновить изображение</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form
+                        method="POST"
+                        action="{% url 'api-vote_upload_image' voting.pk %}"
+                        class="image_edit_form"
+                        enctype="multipart/form-data"
+                >
+                  <div class="modal-body" id="image_upload_form">
+                    {% include 'forms/image_upload_form.html' %}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div id="add_vote_variant_form_block">
-        {% include 'forms/add_vote_variant.html' %}
+    </div>
+    <div
+            class="tab-pane fade show {% if anchor == 'answers' %} active {% endif %}"
+            id="edit_nav-answers"
+            role="tabpanel"
+            aria-labelledby="edit_nav-answers-tab"
+    >
+      <div>
+        asdasdsad
+      </div>
+    </div>
+    <div
+            class="tab-pane fade show {% if anchor == 'social' %} active {% endif %}"
+            id="edit_nav-social"
+            role="tabpanel"
+            aria-labelledby="edit_nav-social-tab"
+    >
+      <div>
+        asdasdsdasdsadsadsad
+      </div>
+    </div>
+    <div
+            class="tab-pane fade show {% if anchor == 'variants' %} active {% endif %}"
+            id="edit_nav-variants"
+            role="tabpanel"
+            aria-labelledby="edit_nav-variants-tab"
+    >
+      <div class="row">
+        <div class="col" id="vote_variant_forms_block">
+          {% include 'forms/vote_variant.html' %}
+        </div>
+        <div class="col" id="add_vote_variant_form_block">
+          {% include 'forms/add_vote_variant.html' %}
+        </div>
       </div>
     </div>
   </div>

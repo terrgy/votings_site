@@ -4,6 +4,7 @@ from django.contrib.messages import get_messages
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 
 from main.functions.edit_vote import process_main_settings_form, collect_main_settings_form, collect_vote_variant_forms, \
     process_save_vote_variant_form, process_delete_vote_variant_form
@@ -285,6 +286,7 @@ def vote_upload_image(request, voting_id):
         context['image_upload_form'] = collect_image_upload_form()
         messages.add_message(request, messages.SUCCESS, 'Изображение успешно загружено')
         json_dict = {
+            'new_image_src': voting_obj.image.image.url,
             'image_upload_form-html': render_to_string('forms/image_upload_form.html', context, request),
             'status': 'ok'
         }
@@ -321,5 +323,27 @@ def profile_upload_image(request, profile_id):
             'image_upload_form-html': render_to_string('forms/image_upload_form.html', context, request),
             'status': 'ok'
         }
+    json_dict['messages'] = render_to_string('base/messages.html', context)
+    return JsonResponse(json_dict)
+
+
+@login_required()
+def voting_delete_image(request, voting_id):
+    if not check_methods(request):
+        return redirect('edit', voting_id=voting_id)
+    voting_obj = check_voting(request, voting_id)
+
+    context = get_base_json_context(request, voting_obj)
+    json_dict = {
+        'new_image_src': static('img/non_voting_picture.png')
+    }
+    if not voting_obj.image:
+        messages.add_message(request, messages.WARNING, 'Изображение отсутствует')
+        json_dict['status'] = 'error'
+    else:
+        voting_obj.image.image.delete()
+        voting_obj.image.delete()
+        messages.add_message(request, messages.SUCCESS, 'Изображение успешно удалено')
+        json_dict['status'] = 'ok'
     json_dict['messages'] = render_to_string('base/messages.html', context)
     return JsonResponse(json_dict)

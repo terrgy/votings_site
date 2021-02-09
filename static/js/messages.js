@@ -19,3 +19,22 @@ function create_message(type, text) {
   div.append(btn)
   return div
 }
+
+$(function () {
+  set_messages_close_timeout()
+})
+
+function add_messages(messages) {
+  $('#messages_block').html(messages)
+  set_messages_close_timeout()
+}
+
+function set_messages_close_timeout() {
+  $('#messages_block .alert').each(function () {
+    setTimeout(() => hide_message(this), 7000)
+  })
+}
+
+function hide_message(message) {
+  (new bootstrap.Alert(message)).close()
+}

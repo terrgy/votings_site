@@ -8,7 +8,7 @@ function action_button_ajax_request(success_func, href, target = null) {
     dataType: 'json',
     success: function (json_obj) {
       if ('messages' in json_obj) {
-        $('#messages_block').append(json_obj['messages'])
+        add_messages(json_obj['messages'])
       }
       if (target) {
         success_func(json_obj, target)
@@ -17,7 +17,7 @@ function action_button_ajax_request(success_func, href, target = null) {
       }
     },
     error: function () {
-      $('#messages_block').html(create_message('error', 'Ошибка получения данных с сервера'))
+      add_messages(create_message('error', 'Ошибка получения данных с сервера'))
     }
   })
 }
@@ -34,7 +34,7 @@ function form_ajax_request(success_func, form, target = null, extra_data = '') {
     dataType: 'json',
     success: function (json_obj) {
       if ('messages' in json_obj) {
-        $('#messages_block').append(json_obj['messages'])
+        add_messages(json_obj['messages'])
       }
       if (target) {
         success_func(json_obj, target)
@@ -43,7 +43,7 @@ function form_ajax_request(success_func, form, target = null, extra_data = '') {
       }
     },
     error: function () {
-      $('#messages_block').html(create_message('error', 'Ошибка получения данных с сервера'))
+      add_messages(create_message('error', 'Ошибка получения данных с сервера'))
     }
   })
 }
@@ -65,7 +65,7 @@ function image_upload_ajax_request(success_func, form, target = null) {
     contentType: false,
     success: function (json_obj) {
       if ('messages' in json_obj) {
-        $('#messages_block').append(json_obj['messages'])
+        add_messages(json_obj['messages'])
       }
       if (target) {
         success_func(json_obj, target)
@@ -74,7 +74,7 @@ function image_upload_ajax_request(success_func, form, target = null) {
       }
     },
     error: function () {
-      $('#messages_block').html(create_message('error', 'Ошибка получения данных с сервера'))
+      add_messages(create_message('error', 'Ошибка получения данных с сервера'))
     }
   })
 }

@@ -9,7 +9,8 @@ def collect_vote_variant_forms(voting_obj):
     for variant in voting_variants:
         forms_dict = {
             'save': collect_save_vote_variant_form(variant),
-            'delete': collect_delete_vote_variant_form(variant)
+            'delete': collect_delete_vote_variant_form(variant),
+            'info': variant
         }
         collected_forms.append(forms_dict)
     return collected_forms

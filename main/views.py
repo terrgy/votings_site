@@ -16,15 +16,7 @@ from main.models import Voting, User, VoteFact, Complaint
 
 
 def index_page(request):
-    context = {
-        'vlad': User.objects.get(pk=3),
-        'tin': User.objects.get(pk=4),
-        'kirigaya': User.objects.get(pk=5),
-        'ld': User.objects.get(pk=6),
-        'sankea': User.objects.get(pk=7),
-        'polomnik': User.objects.get(pk=8),
-        'pers': User.objects.get(pk=9)
-    }
+    context = {}
     return render(request, 'pages/index.html', context)
 
 
@@ -59,15 +51,19 @@ def e_handler403(request, exception):
 
 
 @login_required
-def edit_voting_page(request, voting_id):
+def edit_voting_page(request, voting_id, anchor=''):
     voting_obj = check_voting(request, voting_id)
-
-    # add data to context
+    if anchor == '':
+        anchor = 'main'
+    allowed_anchors = ['main', 'variants', 'answers', 'social']
+    if anchor not in allowed_anchors:
+        return redirect('edit_page', voting_id)
     context = {
         'voting': voting_obj,
         'main_settings_form': collect_main_settings_form(voting_obj),
         'vote_variant_forms': collect_vote_variant_forms(voting_obj),
-        'image_upload_form': collect_image_upload_form()
+        'image_upload_form': collect_image_upload_form(),
+        'anchor': anchor
     }
     if voting_obj.type != 1:
         context['add_vote_variant_form'] = collect_add_vote_variant_form()

@@ -41,8 +41,16 @@ urlpatterns = [
     ),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('votings/', views.votings_list_page, name='votings'),
+
     path('voting/<int:voting_id>/', views.voting_page, name='voting'),
-    path('voting/<int:voting_id>/edit/', views.edit_voting_page, name='edit'),
+    path('voting/<int:voting_id>/add_favourite/', json_views.add_favourite, name='api-add_favourite'),
+    path('voting/<int:voting_id>/delete_favourite/', json_views.delete_favourite, name='api-delete_favourite'),
+    path('voting/<int:voting_id>/cancel_vote/', json_views.cancel_vote, name='api-cancel_vote'),
+    path('voting/<int:voting_id>/vote/', json_views.vote, name='api-vote'),
+
+    path('voting/<int:voting_id>/edit/', views.edit_voting_page, name='edit_page'),
+    path('voting/<int:voting_id>/edit/<str:anchor>', views.edit_voting_page, name='edit_page-anchor'),
+
     path('voting/<int:voting_id>/edit/main_settings/', json_views.edit_main_settings, name='api-edit_main_settings'),
     path('voting/<int:voting_id>/edit/add_vote_variant/', json_views.add_vote_variant, name='api-add_vote_variant'),
     path('voting/<int:voting_id>/edit/save_vote_variant/', json_views.save_vote_variant, name='api-save_vote_variant'),
@@ -50,15 +58,13 @@ urlpatterns = [
          name='api-delete_vote_variant'),
     path('voting/<int:voting_id>/edit/reload/', json_views.reload_edit_forms, name='api-reload_edit_forms'),
     path('voting/<int:voting_id>/edit/upload_image/', json_views.vote_upload_image, name='api-vote_upload_image'),
-    path('voting/<int:voting_id>/add_favourite/', json_views.add_favourite, name='api-add_favourite'),
-    path('voting/<int:voting_id>/delete_favourite/', json_views.delete_favourite, name='api-delete_favourite'),
-    path('voting/<int:voting_id>/cancel_vote/', json_views.cancel_vote, name='api-cancel_vote'),
-    path('voting/<int:voting_id>/vote/', json_views.vote, name='api-vote'),
+    path('voting/<int:voting_id>/edit/delete_image/', json_views.voting_delete_image, name='api-delete_voting_image'),
+
     path('accounts/register/',
          RegistrationView.as_view(form_class=RegistrationForm),
          name='django_registration_register'),
     path('accounts/', include('django_registration.backends.activation.urls')),
-    #path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
     path("accounts/password-reset/", auth_views.PasswordResetView.as_view(
         template_name="registration/forgotten_password.html"), name="password_reset"),
     path("accounts/password-reset/done/", auth_views.PasswordResetDoneView.as_view(

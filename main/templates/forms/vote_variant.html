@@ -1,7 +1,7 @@
 {% load static %}
 
 {% if vote_variant_forms %}
-  <div class="container p-0">
+  <!--<div class="container p-0">
     {% for variant in vote_variant_forms %}
       <div class="row mb-1">
         <div class="col">
@@ -47,7 +47,72 @@
         </div>
       </div>
     {% endfor %}
-  </div>
+  </div>-->
+
+  {% for variant in vote_variant_forms %}
+    <div class="border mb-3 rounded border-2 row align-items-center variant_block p-1" style="min-height: 50px;">
+      <div class="col-sm">
+        {{ variant.info.description|truncatechars:40 }}
+      </div>
+      <div class="col-sm-auto statistics_href">
+        <a href="#">Статистика</a>
+      </div>
+      <div class="col-sm-auto">
+        <img
+                src="{% static 'img/edit_button.png' %}"
+                alt="Редактировать"
+                width="30"
+                height="30"
+                style="cursor: pointer;"
+                data-bs-toggle="modal"
+                data-bs-target="#edit_variant_{{ variant.info.pk }}-modal"
+        >
+      </div>
+
+      <div
+              class="modal fade"
+              id="edit_variant_{{ variant.info.pk }}-modal"
+              tabindex="-1"
+              aria-labelledby="edit_variant_{{ variant.info.pk }}-modal"
+              aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Редактировать вариант</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'api-save_vote_variant' voting.pk %}" class="edit-form">
+              {% csrf_token %}
+              <div class="modal-body">
+                <div class="form-floating">
+                  {{ variant.save.vote_variant_new_description }}
+                  <label for="{{ variant.save.vote_variant_new_description.id_for_label }}">
+                    Описание
+                  </label>
+                  <div class="form-text text-danger">
+                    {% if variant.save.vote_variant_new_description.errors %}
+                      {{ variant.save.vote_variant_new_description.errors.0 }}
+                    {% elif variant.save.non_field_errors %}
+                      {{ variant.save.non_field_errors.0 }}
+                    {% elif variant.delete.non_field_errors %}
+                      {{ variant.delete.non_field_errors.0 }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+
 {% else %}
   <p>Здесь пока пусто. Добавьте варианты по кнопке ниже</p>
 {% endif %}
